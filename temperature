@@ -1,0 +1,25 @@
+#!/bin/bash
+#############################################################
+#                                                           #
+#         Programmme de relevé de température du Chip       #
+#         Version : 0.1			date  21/11/2017    #
+#         Author : Cyril CAVE                               #
+#         Mail : 07 82 94 63 27                             #
+#                                                           #
+#############################################################
+
+period=$1
+
+
+echo "Programme de Mesure de la temperature du CHIP"
+let "a=0"
+while [ 1 ]
+do
+	echo "   Boucle : "$a"   " 
+	date                     # retourne la date
+	vcgencmd measure_temp    # retourne la température
+	echo ""
+	sysbench --test=cpu --cpu-max-prime=2000 --num-threads=4 run>/dev/null 2>&1
+	sleep $period            # pause paramètrée 
+	let "a=$a+1"             # incrémentation
+done
